@@ -64,7 +64,7 @@ function clearActivities() {
 function handleActivity(activityText) {
     saveActivityToLocal(activityText);
     displayActivities(); // Refresh the list of activities
-    document.getElementById('activitySuggestion').textContent = '...'; // Reset the suggestion text
+    document.getElementById('activitySuggestion').textContent = 'Your activity will appear here...'; // Reset the suggestion text
 }
 
 // Function to check if an activity is similar to an existing one
@@ -81,7 +81,7 @@ function isSimilarActivity(newActivity) {
 async function generateUniqueActivity(prompt, maxTokens) {
     let attempts = 0;
     while (attempts < 10) { // Limit attempts to prevent infinite loops
-        const response = await fetch('https://ai-activity-generator-93vnzkyk4-hrbassemands-projects.vercel.app/api/generate', {
+        const response = await fetch('/generateActivity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ async function generateUniqueActivity(prompt, maxTokens) {
             })
         });
         const data = await response.json();
-        const activityText = data.activity.trim().replace(/"/g, '');
+        const activityText = data.activity.trim();
 
         if (!isSimilarActivity(activityText)) {
             return activityText;
@@ -119,21 +119,23 @@ window.onload = function() {
         let prompt = 'Suggest a';
         if (activityType) {
             prompt += ` ${activityType}`;
+        } else {
+            prompt += ' fun';
         }
-        prompt += ' activity to a person who is bored';
+        prompt += ' activity';
         if (peopleCount) {
             prompt += ` for ${peopleCount} people`;
         }
         if (timeAvailable) {
-            prompt += ` that takes ${timeAvailable} time`;
+            prompt += ` that takes ${timeAvailable} minutes`;
         }
         if (interests) {
             prompt += ` that a person who likes ${interests} would also like`;
         }
         if (location) {
-            prompt += ` specific to ${location} make sure that it actually exists in the area For example if you say "cafe hygge" make sure that it exists in virum (it doesnt btw)`;
+            prompt += ` specific to ${location}`;
         }
-        prompt += '. Be as concise as possible only mention the activity nothing else.';
+        prompt += '. Be concise.';
 
         const uniqueActivity = await generateUniqueActivity(prompt, 60);
         document.getElementById('activitySuggestion').textContent = uniqueActivity;

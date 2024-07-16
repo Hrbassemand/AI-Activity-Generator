@@ -10,10 +10,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Serve your static files (if you have a frontend component)
-app.use(express.static('public'));
+app.use(express.static('docs'));
 
 // POST endpoint to generate activity suggestions
-app.post('/api/generate', async (req, res) => { // Note the updated endpoint to match the Vercel setup
+app.post('/generateActivity', async (req, res) => {
     const { prompt, max_tokens } = req.body;
 
     const requestOptions = {
@@ -39,7 +39,7 @@ app.post('/api/generate', async (req, res) => { // Note the updated endpoint to 
             throw new Error('No valid response from AI');
         }
     } catch (error) {
-        console.error('Error handling /api/generate:', error);
+        console.error('Error handling /generateActivity:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
