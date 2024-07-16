@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="main-content">
+        <h1>What Should I Do?</h1>
+        <button id="suggestionButton">Generate Activity</button>
+        <div id="activityContainer">
+            <p id="activitySuggestion">...</p>
+        </div>
+        <div id="actionButtons">
+            <button id="saveButton" class="save">Save</button>
+        </div>
+        <div id="disclaimer">
+            <p><br></br>The more you input, the more specific.</p>
+        </div>
+        <div id="personalization">
+            <label for="peopleCount">How many people are you?</label>
+            <input type="text" id="peopleCount">
+            <label for="timeAvailable">How much time do you have?</label>
+            <input type="text" id="timeAvailable">
+            <label for="activityType">What type of activity?</label>
+            <input type="text" id="activityType">
+            <label for="interests">What are your interests?</label>
+            <input type="text" id="interests">
+            <label for="location">Where are you located?</label>
+            <input type="text" id="location">
+        </div>
+    </div>
+    <div class="activities-section">
+        <h2>Activities</h2>
+        <button id="clearListButton" class="clear">Clear List</button>
+        <div id="activitiesList"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
